@@ -13,6 +13,7 @@ GPIO.setup(up, GPIO.IN)
 GPIO.setup(down, GPIO.IN)
 def dec2bin(value):
     return [int(element) for element in bin(value)[2:].zfill(8)]
+    
 while True:
     if GPIO.input(up):
         if num >= 255:
