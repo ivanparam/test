@@ -24,12 +24,12 @@ class MCP4725:
             print("Вне диапазона разрядности")
 
         first_byte = self.wm | self.pds | number >> 8
-        second_byte = number * 0xFF
+        second_byte = number & 0xFF
         self.bus.write_byte_data(0x61, first_byte, second_byte)
         
         if self.verbose:
             print(f"Число: {number}, данные на I2C: [0x{(self.address << 1):02X}, 0x{first_byte:02X}, 0x{second_byte:02X}]\n")
-
+            print(hex(second_byte))
     def set_voltage(self, voltage):
         if (0 <= voltage <= self.dynamic_range):
             number = int(voltage / self.dynamic_range * 4095)
@@ -39,10 +39,10 @@ class MCP4725:
 
 
 if __name__ == "__main__":
-    mcp = MCP4725(dynamic_range=4.2, verbose=True)
+    mcp = MCP4725(dynamic_range=5, verbose=True)
+
     try:
         
-
         while True:
             try:
                 voltage = float(input("Введите напряжение в вольтах: "))

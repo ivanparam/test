@@ -1,6 +1,7 @@
 import r2r_adc
 import time
 import adc_plot
+import plot_sampling_period_hist
 
 r2r = r2r_adc.R2R_ADC(3.3)
 voltage_values = []

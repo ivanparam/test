@@ -2,7 +2,7 @@ import RPi.GPIO as GPIO
 import time
 
 class R2R_ADC:
-    def __init__(self, dynamic_range, compare_time = 0.01, verbose = False):
+    def __init__(self, dynamic_range, compare_time = 1, verbose = False):
         self.dynamic_range = dynamic_range
         self.verbose = verbose
         self.compare_time = compare_time
@@ -15,8 +15,8 @@ class R2R_ADC:
         GPIO.setup(self.comp_gpio, GPIO.IN)
 
     def deinit(self):
-    GPIO.output(self.bits_gpio, 0)
-    GPIO.cleanup()
+        GPIO.output(self.bits_gpio, 0)
+        GPIO.cleanup()
 
     def number_to_dac(self, number):
             a = [int(i) for i in bin(number)[2:].zfill(8)]
@@ -44,6 +44,6 @@ if __name__ == "__main__":
         r2r_adc = R2R_ADC(3.3)
         while True:
             voltage = r2r_adc.get_sc_voltage()
-            print(f'Напряжение: {voltage} В')
+            print(f'Напряг: {voltage} В')
     finally:
         r2r_adc.deinit()
